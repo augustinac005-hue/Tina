@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tina Spotless Art</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050505; --dark: #0d0d0d; --card: #111111;
+  --gold: #d4a017; --gold-light: #f0c040; --neon: #00ffcc;
+  --neon2: #ff2d78; --white: #f5f5f5; --muted: #666;
+  --border: rgba(212,160,23,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'Space Grotesk', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+.cursor { position: fixed; width: 10px; height: 10px; background: var(--neon); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: difference; }
+.cursor-ring { position: fixed; width: 40px; height: 40px; border: 1px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.18s ease; opacity: 0.5; }
+.bg-glow { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse 600px 400px at 20% 20%, rgba(0,255,204,0.04) 0%, transparent 70%), radial-gradient(ellipse 500px 400px at 80% 80%, rgba(255,45,120,0.04) 0%, transparent 70%), radial-gradient(ellipse 400px 300px at 50% 50%, rgba(212,160,23,0.03) 0%, transparent 70%); animation: bgPulse 8s ease-in-out infinite alternate; }
+@keyframes bgPulse { from { opacity: 0.6; } to { opacity: 1; } }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 24px 56px; background: rgba(5,5,5,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; background: linear-gradient(90deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover { color: var(--neon); }
+.nav-cta { border: 1px solid var(--gold); color: var(--gold); padding: 10px 24px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+.nav-cta:hover { background: var(--gold); color: var(--black); }
+.hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 56px 80px; position: relative; overflow: hidden; }
+.shape { position: absolute; border-radius: 50%; pointer-events: none; animation: float 6s ease-in-out infinite alternate; }
+.shape-1 { width: 300px; height: 300px; right: 8%; top: 15%; background: radial-gradient(circle, rgba(0,255,204,0.08) 0%, transparent 70%); }
+.shape-2 { width: 200px; height: 200px; right: 20%; top: 50%; background: radial-gradient(circle, rgba(255,45,120,0.08) 0%, transparent 70%); animation-delay: 2s; }
+.shape-3 { width: 150px; height: 150px; right: 5%; bottom: 20%; background: radial-gradient(circle, rgba(212,160,23,0.1) 0%, transparent 70%); animation-delay: 4s; }
+@keyframes float { from { transform: translateY(0px); } to { transform: translateY(-30px); } }
+.hero-content { max-width: 650px; position: relative; z-index: 2; animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(0,255,204,0.3); padding: 8px 16px; margin-bottom: 32px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--neon); }
+.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--neon); border-radius: 50%; box-shadow: 0 0 8px var(--neon); animation: blink 2s infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(48px, 7vw, 90px); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 24px; }
+.neon-text { color: var(--neon); text-shadow: 0 0 30px rgba(0,255,204,0.4); }
+.gold-text { background: linear-gradient(90deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-desc { font-size: 14px; line-height: 1.8; color: var(--muted); margin-bottom: 44px; max-width: 500px; }
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-neon { background: var(--neon); color: var(--black); padding: 14px 32px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; box-shadow: 0 0 20px rgba(0,255,204,0.3); }
+.btn-neon:hover { box-shadow: 0 0 40px rgba(0,255,204,0.6); transform: translateY(-2px); }
+.btn-outline { border: 1px solid var(--border); color: var(--white); padding: 14px 32px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+.marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; overflow: hidden; background: rgba(212,160,23,0.02); }
+.marquee-track { display: flex; animation: marquee 25s linear infinite; white-space: nowrap; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-item { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding: 0 32px; flex-shrink: 0; }
+.m-gold { color: var(--gold); } .m-neon { color: var(--neon); }
+section { padding: 100px 56px; position: relative; z-index: 1; }
+.sec-eyebrow { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--neon); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+.sec-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--neon); }
+.sec-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 60px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 60px; }
+.sec-title em { font-style: italic; color: var(--gold); }
+
+/* GALLERY */
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.gallery-item { position: relative; overflow: hidden; background: var(--card); aspect-ratio: 1; cursor: none; }
+.gallery-item:first-child { grid-column: span 2; aspect-ratio: 2/1; }
+.gallery-item:nth-child(4) { grid-column: span 2; aspect-ratio: 2/1; }
+.gallery-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); display: block; }
+.gallery-item:hover .gallery-img { transform: scale(1.06); }
+.gallery-fallback { width: 100%; height: 100%; min-height: 220px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0d1a12 0%, #0a1510 100%); position: relative; }
+.gallery-fallback-icon { font-size: 60px; opacity: 0.08; color: var(--gold); font-family: 'Playfair Display', serif; }
+.gallery-grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(212,160,23,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(212,160,23,0.03) 1px, transparent 1px); background-size: 24px 24px; }
+.gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; opacity: 0; transform: translateY(10px); transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+.gallery-item:hover .gallery-overlay { opacity: 1; transform: translateY(0); }
+.gallery-cat { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--neon); margin-bottom: 6px; }
+.gallery-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+
+/* ABOUT */
+.about-section { background: var(--dark); }
+.about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-visual { position: relative; height: 500px; }
+.about-frame { position: absolute; inset: 0; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; background: var(--card); overflow: hidden; }
+.about-frame::before { content: ''; position: absolute; inset: 16px; border: 1px solid rgba(212,160,23,0.08); }
+.about-big-letter { font-family: 'Playfair Display', serif; font-size: 260px; font-style: italic; font-weight: 900; color: transparent; -webkit-text-stroke: 1px rgba(212,160,23,0.06); line-height: 1; user-select: none; }
+.about-accent { position: absolute; bottom: -16px; right: -16px; width: 120px; height: 120px; border: 1px solid rgba(0,255,204,0.2); background: rgba(0,255,204,0.02); display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; }
+.about-accent-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: var(--neon); line-height: 1; }
+.about-accent-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.about-neon-line { position: absolute; top: -1px; left: 40px; width: 80px; height: 2px; background: linear-gradient(90deg, var(--neon), transparent); }
+.about-p { font-size: 13px; line-height: 1.9; color: var(--muted); margin-bottom: 20px; }
+.about-skills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.skill-tag { border: 1px solid var(--border); padding: 8px 16px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); transition: all 0.3s; }
+.skill-tag:hover { background: rgba(212,160,23,0.08); border-color: var(--gold); }
+
+/* TESTIMONIALS */
+.testimonials-section { background: var(--black); }
+.testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.testi-card { background: var(--card); padding: 48px 40px; position: relative; overflow: hidden; border: 1px solid transparent; transition: border-color 0.3s; }
+.testi-card:hover { border-color: var(--border); }
+.testi-card::before { content: '\201C'; position: absolute; top: 10px; left: 28px; font-family: 'Playfair Display', serif; font-size: 100px; color: rgba(0,255,204,0.05); line-height: 1; }
+.testi-neon-bar { position: absolute; top: 0; left: 0; width: 0; height: 2px; background: var(--neon); transition: width 0.5s cubic-bezier(0.16,1,0.3,1); }
+.testi-card:hover .testi-neon-bar { width: 100%; }
+.testi-text { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; line-height: 1.7; margin-bottom: 32px; position: relative; z-index: 1; }
+.testi-author { display: flex; align-items: center; gap: 14px; }
+.testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--gold) 0%, var(--neon2) 100%); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--black); flex-shrink: 0; }
+.testi-name { font-size: 13px; font-weight: 500; }
+.testi-role { font-size: 10px; color: var(--neon); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+
+/* CONTACT */
+.contact-section { background: var(--dark); text-align: center; padding: 120px 56px; position: relative; }
+.contact-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 300px; pointer-events: none; background: radial-gradient(ellipse, rgba(0,255,204,0.05) 0%, transparent 70%); }
+.contact-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 7vw, 90px); font-weight: 900; letter-spacing: -0.03em; line-height: 1; margin-bottom: 16px; position: relative; z-index: 1; }
+.contact-sub { font-size: 13px; color: var(--muted); margin-bottom: 52px; line-height: 1.8; position: relative; z-index: 1; }
+.contact-email { display: inline-block; font-family: 'Playfair Display', serif; font-size: clamp(20px, 3vw, 36px); font-style: italic; color: var(--gold-light); text-decoration: none; border-bottom: 2px solid rgba(212,160,23,0.3); padding-bottom: 8px; transition: all 0.3s; position: relative; z-index: 1; }
+.contact-email:hover { color: var(--neon); border-color: var(--neon); }
+.contact-socials { display: flex; justify-content: center; gap: 32px; margin-top: 52px; flex-wrap: wrap; position: relative; z-index: 1; }
+.social-link { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.3s; }
+.social-link::before { content: '↗'; color: var(--gold); }
+.social-link:hover { color: var(--neon); }
+
+footer { background: var(--black); padding: 32px 56px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); }
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; background: linear-gradient(90deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.footer-copy { font-size: 10px; color: var(--muted); letter-spacing: 0.08em; }
+
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+
+@media (max-width: 900px) {
+  nav { padding: 20px 24px; } .nav-links { display: none; }
+  section { padding: 72px 24px; } .hero { padding: 100px 24px 72px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-item:first-child, .gallery-item:nth-child(4) { grid-column: span 2; aspect-ratio: 2/1; }
+  .about-inner { grid-template-columns: 1fr; gap: 48px; } .about-visual { height: 280px; }
+  .testi-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="bg-glow"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Tina Spotless Art</a>
+  <ul class="nav-links">
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="shape shape-1"></div>
+  <div class="shape shape-2"></div>
+  <div class="shape shape-3"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Open for Commissions &amp; Brand Projects</div>
+    <h1>Art that makes<br>brands <span class="neon-text">glow.</span><br><span class="gold-text">Tina Spotless.</span></h1>
+    <p class="hero-desc">Digital &amp; traditional artist. Graphic designer. Social media branding specialist. I create visuals that stop the scroll and build brand identity that lasts.</p>
+    <div class="hero-btns">
+      <a href="#gallery" class="btn-neon">View My Work</a>
+      <a href="#contact" class="btn-outline">Let's Create Together</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Digital Art <span class="m-gold">◆</span></span>
+    <span class="marquee-item">Traditional Art <span class="m-neon">◆</span></span>
+    <span class="marquee-item">Graphic Design <span class="m-gold">◆</span></span>
+    <span class="marquee-item">Brand Identity <span class="m-neon">◆</span></span>
+    <span class="marquee-item">Art Commissions <span class="m-gold">◆</span></span>
+    <span class="marquee-item">Social Media Branding <span class="m-neon">◆</span></span>
+    <span class="marquee-item">Highlights Design <span class="m-gold">◆</span></span>
+    <span class="marquee-item">Landing Pages <span class="m-neon">◆</span></span>
+    <span class="marquee-item">Digital Art <span class="m-gold">◆</span></span>
+    <span class="marquee-item">Traditional Art <span class="m-neon">◆</span></span>
+    <span class="marquee-item">Graphic Design <span class="m-gold">◆</span></span>
+    <span class="marquee-item">Brand Identity <span class="m-neon">◆</span></span>
+    <span class="marquee-item">Art Commissions <span class="m-gold">◆</span></span>
+    <span class="marquee-item">Social Media Branding <span class="m-neon">◆</span></span>
+    <span class="marquee-item">Highlights Design <span class="m-gold">◆</span></span>
+    <span class="marquee-item">Landing Pages <span class="m-neon">◆</span></span>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="sec-eyebrow reveal">Art Gallery</div>
+  <h2 class="sec-title reveal">Selected <em>Works</em></h2>
+  <div class="gallery-grid">
+
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://i.ibb.co/4RJRM3kk/FB-IMG-1744051862055.jpg" alt="Artwork 2024"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-fallback" style="display:none;"><div class="gallery-grid-lines"></div><div class="gallery-fallback-icon">✦</div></div>
+      <div class="gallery-overlay">
+        <div class="gallery-cat">Artwork · 2024</div>
+        <div class="gallery-name">Tina Spotless Art</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-1">
+      <img class="gallery-img" src="https://i.ibb.co/VWpTTSSd/Screenshot-20250201-140652.png" alt="Graphic Design 2025"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-fallback" style="display:none; background: linear-gradient(135deg,#1a0d0d,#150a0a);"><div class="gallery-grid-lines"></div><div class="gallery-fallback-icon">◈</div></div>
+      <div class="gallery-overlay">
+        <div class="gallery-cat">Graphic Design · 2025</div>
+        <div class="gallery-name">Tina Spotless Art</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-2">
+      <img class="gallery-img" src="https://i.ibb.co/Gfmjqzcg/IMG-20240228-162003-195.jpg" alt="Traditional Art 2024"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-fallback" style="display:none; background: linear-gradient(135deg,#0d0d1a,#0a0a15);"><div class="gallery-grid-lines"></div><div class="gallery-fallback-icon">◉</div></div>
+      <div class="gallery-overlay">
+        <div class="gallery-cat">Traditional Art · 2024</div>
+        <div class="gallery-name">Tina Spotless Art</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://i.ibb.co/Pz5pH920/In-Shot-20241226-105204424.jpg" alt="Digital Art 2024"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-fallback" style="display:none; background: linear-gradient(135deg,#1a1500,#15110a);"><div class="gallery-grid-lines"></div><div class="gallery-fallback-icon">◇</div></div>
+      <div class="gallery-overlay">
+        <div class="gallery-cat">Digital Art · 2024</div>
+        <div class="gallery-name">Tina Spotless Art</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-1">
+      <img class="gallery-img" src="https://i.ibb.co/3YGt0L7r/In-Shot-20260322-191249049.jpg" alt="Artwork 2026"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-fallback" style="display:none; background: linear-gradient(135deg,#1a0d1a,#100a10);"><div class="gallery-grid-lines"></div><div class="gallery-fallback-icon">✧</div></div>
+      <div class="gallery-overlay">
+        <div class="gallery-cat">Artwork · 2026</div>
+        <div class="gallery-name">Tina Spotless Art</div>
+      </div>
+    </div>
+
+    <div class="gallery-item reveal reveal-delay-2">
+      <img class="gallery-img" src="https://i.ibb.co/PGKQ2gvB/Screenshot-20240517-113156.png" alt="Graphic Design 2024"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="gallery-fallback" style="display:none; background: linear-gradient(135deg,#0d1a1a,#0a1515);"><div class="gallery-grid-lines"></div><div class="gallery-fallback-icon">◐</div></div>
+      <div class="gallery-overlay">
+        <div class="gallery-cat">Graphic Design · 2024</div>
+        <div class="gallery-name">Tina Spotless Art</div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-frame" style="padding:0; border: 1px solid var(--border);">
+        <img src="https://i.ibb.co/WN0TJt9r/IMG-20241211-WA0029.jpg" alt="Tina Spotless Art" style="width:100%; height:100%; object-fit:cover; display:block;"
+          onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#1a120d,#150e0a)'; this.parentElement.innerHTML += '<div style=\'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;font-size:260px;font-style:italic;color:transparent;-webkit-text-stroke:1px rgba(212,160,23,0.06)\'>T</div>';">
+      </div>
+      <div class="about-accent">
+        <div class="about-accent-num">6+</div>
+        <div class="about-accent-label">Years of Art</div>
+      </div>
+    </div>
+    <div class="about-text reveal reveal-delay-1">
+      <div class="sec-eyebrow">About Tina</div>
+      <h2 class="sec-title">The artist<br>behind the <em>brand</em></h2>
+      <p class="about-p">I'm Tina — a digital and traditional artist, graphic designer, and social media branding specialist. Art has been my gift since primary school, and today I channel that gift into building beautiful brands and creating art that moves people.</p>
+      <p class="about-p">If you're a brand, a business, or an individual who wants visuals that truly stand out — you're in the right place.</p>
+      <div class="about-skills">
+        <span class="skill-tag">Digital Art</span>
+        <span class="skill-tag">Traditional Art</span>
+        <span class="skill-tag">Graphic Design</span>
+        <span class="skill-tag">Brand Identity</span>
+        <span class="skill-tag">IG Highlights</span>
+        <span class="skill-tag">Landing Pages</span>
+        <span class="skill-tag">Art Commissions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="reviews">
+  <div class="sec-eyebrow reveal">Client Reviews</div>
+  <h2 class="sec-title reveal">What people <em>say</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-neon-bar"></div>
+      <p class="testi-text">"Tina completely transformed how my page looks. The highlights she designed are so clean and professional — I get compliments on my branding every week."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">A</div>
+        <div><div class="testi-name">Amaka Chukwu</div><div class="testi-role">Small Business Owner</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="testi-neon-bar"></div>
+      <p class="testi-text">"I ordered a custom digital portrait and it was beyond what I imagined. The detail, the colors, the feel — Tina is genuinely talented. 100% recommending."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">K</div>
+        <div><div class="testi-name">Kelechi Nwosu</div><div class="testi-role">Art Commission Client</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-neon-bar"></div>
+      <p class="testi-text">"The landing page Tina built for my brand was stunning. She understood my vision instantly and delivered something that truly represents who we are."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">F</div>
+        <div><div class="testi-name">Fatima Bello</div><div class="testi-role">Fashion Brand Owner</div></div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="testi-neon-bar"></div>
+      <p class="testi-text">"Working with Tina Spotless Art was one of the best decisions for my business. Her creativity is unmatched and she delivers fast. Will definitely work with her again."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">D</div>
+        <div><div class="testi-name">David Okafor</div><div class="testi-role">Brand Manager</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-glow"></div>
+  <div class="sec-eyebrow reveal" style="justify-content:center; margin-bottom:24px;">Let's Create Together</div>
+  <h2 class="contact-title reveal">Ready to <span class="neon-text">glow</span> up<br>your brand?</h2>
+  <p class="contact-sub reveal">I take on limited projects each month.<br>Reach out now and let's build something beautiful together.</p>
+  <a href="mailto:hello@tinaspotlessart.com" class="contact-email reveal">hello@tinaspotlessart.com</a>
+  <div class="contact-socials reveal">
+    <a href="#" class="social-link">Instagram</a>
+    <a href="#" class="social-link">Facebook</a>
+    <a href="#" class="social-link">TikTok</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Tina Spotless Art</div>
+  <div class="footer-copy">© 2025 Tina Spotless Art. All rights reserved.</div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function animCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  })();
+  document.querySelectorAll('a, button, .gallery-item, .testi-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { ring.style.width = '64px'; ring.style.height = '64px'; ring.style.borderColor = 'var(--neon)'; });
+    el.addEventListener('mouseleave', () => { ring.style.width = '40px'; ring.style.height = '40px'; ring.style.borderColor = 'var(--gold)'; });
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
